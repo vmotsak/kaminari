@@ -10,10 +10,12 @@ module Kaminari
     class Paginator < Tag
       # so that this instance can actually "render"
       include ::ActionView::Context
+      attr_reader :scope
 
       def initialize(template, options) #:nodoc:
         #FIXME for compatibility. remove num_pages at some time in the future
         options[:num_pages] ||= options[:total_pages]
+        @scope = options[:scope]
 
         @window_options = {}.tap do |h|
           h[:window] = options.delete(:window) || options.delete(:inner_window) || Kaminari.config.window
